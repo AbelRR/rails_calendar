@@ -1,30 +1,60 @@
 class ScheduleController < ApplicationController
+    class SectionBlock
+        def initialize()
+            @students = []
+            @section_data = {}
+        end
+        def students
+            @students
+        end
+        def section_data
+            @section_data
+        end
+        def add_student(student)
+            @students << student
+        end
+        def add_section_data(section)
+            @section_data = section
+        end
+    end
     def weekly_schedule
-        # TODO: 
-        # return data (in json format) for the weekly calendar at the school
-        # filter SectionStudents whose sections fall within a weeks range
+        # returns data (in json format) for the weekly calendar at the school
 
-        def event_in_range(timestamp)
-            require 'time'
-            three_days = 259200
-            three_days_ago = Time.now.to_i - three_days
-            three_days_from_now = Time.now.to_i + three_days
-            range = three_days..three_days_from_now
+        num_to_day_map = {
+            0 => "Sunday",
+            1 => "Monday",
+            2 => "Tuesday",
+            3 => "Wednesday",
+            4 => "Thursday",
+            5 => "Friday",
+            6 => "Saturday",
+        }
+        week_days = {
+            "Sunday" => {},
+            "Monday" => {},
+            "Tuesday" => {},
+            "Wednesday" => {},
+            "Thursday" => {},
+            "Friday" => {},
+            "Saturday" => {},
+        }
 
-            range === timestamp.to_i
+        # iterate through sections
+        Section.all.each do |section| 
+            section_day = num_to_day_map[section.date.wday]
+            section_name = "#{section.id}_#{section.name}"
+            
+            students = []
+            section.students.each do |student|
+                students << student
+            end
+
+            week_days[section_day][section_name] = {}
+            week_days[section_day][section_name]['section'] = section
+            week_days[section_day][section_name]['students'] = students
         end
 
-        all_sections = SectionStudent.all.map do |section_student|
-            section_student.reload_section              
-        end
-
-        sections_in_week = all_sections.filter do |section|
-            section_date = section.date
-            event_in_range(section_date)
-        end
-
-        # range === Time.now
-        # user = SectionStudent.find(1).reload_section
-        render json: sections_in_week
+        
+        render json: week_days
     end
 end

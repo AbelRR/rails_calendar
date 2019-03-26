@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_24_231511) do
+ActiveRecord::Schema.define(version: 2019_03_26_214441) do
 
   create_table "section_students", force: :cascade do |t|
     t.integer "user_id"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_03_24_231511) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_section_students_on_section_id"
+    t.index ["user_id", "section_id"], name: "index_section_students_on_user_id_and_section_id", unique: true
     t.index ["user_id"], name: "index_section_students_on_user_id"
   end
 

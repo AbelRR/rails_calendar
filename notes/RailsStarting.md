@@ -65,6 +65,13 @@ then,  update the SectionStudent model to reference **user** model rather than *
 
 ------
 
+#### Adding Uniq Index on Joining Table to prevent duplicate relationships
+
+create a migration that adds a unique index across multiple columns:
+`add_index :section_students, [:user_id, :section_id], unique: true`
+
++++
+
 #### Adding associations between Students and Sections
 
 https://guides.rubyonrails.org/association_basics.html#choosing-between-has-many-through-and-has-and-belongs-to-many
@@ -88,7 +95,7 @@ Methods added by has_many relationship: https://guides.rubyonrails.org/associati
 
 **generate a controller** in the app/controllers directory
 
-
++++
 
 
 
@@ -96,14 +103,15 @@ Methods added by has_many relationship: https://guides.rubyonrails.org/associati
 
 ------
 
-Debugging: 
+#### Debugging: 
 
 *byebug* —> opens up rails console to inspect the environment, inject code, etc.
 JSON-formatter —> Chrome extension  
 
 ------
 
-RESOURCES: 
+#### RESOURCES: 
+
 https://www.ralfebert.de/snippets/ruby-rails/models-tables-migrations-cheat-sheet/
 
 https://raw.githubusercontent.com/rails/rails/master/railties/lib/rails/generators/rails/model/USAGE
