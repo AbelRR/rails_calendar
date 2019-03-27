@@ -1,11 +1,11 @@
 desc 'creates fake class section'
-task :create_fake_section => :environment do
+task :create_fake_sections => :environment do
   require 'faker'  
-  10.times do
+  15.times do
     Section.create!(
     	name: Faker::Educator.subject,	
-    	date: Faker::Date.backward(21)
+    	date: Faker::Date.backward(100)
     )
   end
-  puts "created 10 sections"
+  puts "created 15 sections"
 end

@@ -117,6 +117,7 @@ Rake tasks are located in: `/lib/tasks/*.rake ` and can be executed with `rake` 
 desc '...'
 task :name do
   # task code ...
+  # Rake::Task[:another_rake_task].invoke ==> invokes another rake task
 end
 ```
 
