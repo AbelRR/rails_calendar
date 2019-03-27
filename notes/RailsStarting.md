@@ -51,7 +51,11 @@ Created Sections Table —>  ` bin/rails generate model Section name:string date
 
 Created SectionStudent model and table —> `bin/rails generate model SectionStudent student:references section:references`
 
-gives error: `ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: main.students: INSERT INTO "section_students" ("student_id", "section_id", "created_at", "updated_at") VALUES (?, ?, ?, ?))`
+gives error:
+
+```text
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: main.students: INSERT INTO "section_students" ("student_id", "section_id", "created_at", "updated_at") VALUES (?, ?, ?, ?))
+```
 
 **<u>correction</u>**: rollback migration, use: `rake db:rollback STEP=1`
 then,  update the SectionStudent model to reference **user** model rather than **student** model —> 
@@ -89,7 +93,9 @@ Methods added by has_many relationship: https://guides.rubyonrails.org/associati
 
 ------
 
-#### Creating a Calendar Controller
+#### Creating a Controller
+
+###### Controllers are the classes of actions which handle requests to the Application. Each controller is it's own Class that contains Action methods. A specific action method is invoked upon a url being hit.
 
 **define routes** in routes.rb ==> `HTTP_ACTION 'end-point' ===> 'controller#action'`
 
@@ -97,9 +103,39 @@ Methods added by has_many relationship: https://guides.rubyonrails.org/associati
 
 +++
 
+#### Creating Rake Tasks
 
+###### Rake tasks are used to handle administrative tasks or commands.
 
+Rake tasks are located in: `/lib/tasks/*.rake ` and can be executed with `rake` keyword before filename
 
+`.rake` is the extension. **NOT** `.rb`: 
+
+```
+###### Rake convention #######
+
+desc '...'
+task :name do
+  # task code ...
+end
+```
+
+Make sure to **require neccesary *gems* inside the task itself**
+
+Include the neccesary environment/filesystem/Models that are required to interact with specific task
+
++++
+
+#### touchNotes on Development: 
+
+##### Create one diff/commit on every meaningul change.
+
+ - example:
+    - a migration,	
+    -  updating/adding a controller, 
+    - adding asociations, 
+    - minor changes
+    - leaving away from computer
 
 ------
 
