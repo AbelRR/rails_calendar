@@ -9,16 +9,16 @@ task :create_section_students => :environment do
     Section.pluck(:id).each do |id|       
       students = Student.pluck(:id)
       num_of_students_in_section = rand(1..(students.length / 2))
-      visited_nums = []
+      existing_students_in_section = []
       
       num_of_students_in_section.times do 
         rand_student_id = rand(0...students.length)
 
-        while visited_nums.include? rand_student_id
+        while existing_students_in_section.include?(rand_student_id)
           rand_student_id = rand(0...students.length)
         end
 
-        visited_nums << rand_student_id
+        existing_students_in_section << rand_student_id
 
         SectionStudent.create!(
           user_id: students[rand_student_id],
