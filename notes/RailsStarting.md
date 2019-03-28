@@ -95,7 +95,7 @@ Methods added by has_many relationship: https://guides.rubyonrails.org/associati
 
 ###### Controllers are the classes of actions which handle requests to the Application. Each controller is it's own Class that contains Action methods. A specific action method is invoked upon a url being hit.
 
-**define routes** in routes.rb ==> `HTTP_ACTION 'end-point' ===> 'controller#action'`
+**define routes** in routes.rb ==> `HTTP_ACTION 'end-point' => 'controller#action'`
 
 **generate a controller** in the app/controllers directory
 
