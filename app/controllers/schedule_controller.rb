@@ -12,27 +12,21 @@ class ScheduleController < ApplicationController
             5 => "friday",
             6 => "saturday",
         }
-        week_days = {
-            "sunday" => [],
-            "monday" => [],
-            "tuesday" => [],
-            "wednesday" => [],
-            "thursday" => [],
-            "friday" => [],
-            "saturday" => [],
+    
+        days = {
+            "sunday" => {},
+            "monday" => {},
+            "tuesday" => {},
+            "wednesday" => {},
+            "thursday" => {},
+            "friday" => {},
+            "saturday" => {},
         }
 
-        # iterate through sections
-        Section.all.each do |section| 
+        week_days = Section.all.reduce(days) do |schedule, section|
             section_day = num_to_day_map[section.date.wday]
-
-            week_day = week_days[section_day]
-            
-            students = section.students
-
-            curr_section =  SectionSerializer.new(section)
-
-            week_day.push(curr_section)
+            schedule[section_day][section.name] = SectionSerializer.new(section)
+            schedule
         end
 
         render json: week_days
