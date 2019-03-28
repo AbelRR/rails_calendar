@@ -1,5 +1,5 @@
 class SectionSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :date
   has_many :section_students
   has_many :students, through: :section_students
 

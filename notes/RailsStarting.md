@@ -125,7 +125,7 @@ Include the neccesary environment/filesystem/Models that are required to interac
 
 +++
 
-#### touchNotes on Development: 
+#### Notes on Development: 
 
 ##### Create one diff/commit on every meaningul change.
 
@@ -135,6 +135,12 @@ Include the neccesary environment/filesystem/Models that are required to interac
     - adding asociations, 
     - minor changes
     - leaving away from computer
+
+##### Kill running processes
+
+
+
+https://stackoverflow.com/questions/4473229/rails-server-says-port-already-used-how-to-kill-that-process
 
 ------
 
