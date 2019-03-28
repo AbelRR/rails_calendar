@@ -1,4 +1,4 @@
-desc 'creates section_students'
+desc 'Adds students to sections'
 task :create_section_students => :environment do
     SectionStudent.destroy_all
     Section.destroy_all

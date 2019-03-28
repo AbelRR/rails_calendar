@@ -34,8 +34,6 @@ FIX:
 update <u>sqlite3 version</u> in Gemfile —> gem 'sqlite3', '~> 1.3.6'
 then ==> `bundle install`
 
-Now, run `bin/rails db:migrate` 
-
 ------
 
 #### Creating Models

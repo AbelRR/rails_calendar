@@ -1,22 +1,5 @@
 class ScheduleController < ApplicationController
-    class SectionBlock
-        def initialize()
-            @students = []
-            @section_data = {}
-        end
-        def students
-            @students
-        end
-        def section_data
-            @section_data
-        end
-        def add_student(student)
-            @students << student
-        end
-        def add_section_data(section)
-            @section_data = section
-        end
-    end
+    
     def weekly_schedule
         # returns data (in json format) for the weekly calendar at the school
 
@@ -42,19 +25,17 @@ class ScheduleController < ApplicationController
         # iterate through sections
         Section.all.each do |section| 
             section_day = num_to_day_map[section.date.wday]
-            section_name = "#{section.id}_#{section.name}"
+            section_name = "#{section.name} - #{section.id}"
             
-            students = []
-            section.students.each do |student|
-                students << student
-            end
+            @students = section.students.map { |student| Student.new(student.as_json) }
 
             week_days[section_day][section_name] = {}
-            week_days[section_day][section_name]['section'] = section
-            week_days[section_day][section_name]['students'] = students
+            week_days[section_day][section_name]['section'] = Section.new(section.as_json)
+            week_days[section_day][section_name]['students'] = @students
         end
 
         
-        render json: week_days
+        # render json: week_days
+        render json: week_days, each_serializer: SectionStudentSerializer
     end
 end
