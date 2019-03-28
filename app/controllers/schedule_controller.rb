@@ -30,14 +30,11 @@ class ScheduleController < ApplicationController
             
             students = section.students
 
-            curr_section = ActiveSupport::JSON.decode(section.to_json(only: [:id, :name, :date]))
-            curr_section["students"] = students.map { |student| ActiveSupport::JSON.decode(student.to_json(only: [:id, :first_name, :last_name, :email])) }
+            curr_section =  SectionSerializer.new(section)
 
             week_day.push(curr_section)
         end
 
-        @data = week_days
         render json: week_days
-        # render json: @data, serializer: WeekdaySerializer
     end
 end
